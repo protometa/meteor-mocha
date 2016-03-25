@@ -9,11 +9,8 @@ THIS PACKAGE DOES NOT RUN CLIENT TESTS. IF YOUR APP HAS TESTS IN CLIENT CODE, US
 In a Meteor 1.3+ app directory:
 
 ```bash
-npm i --save-dev mocha
 meteor add dispatch:mocha
 ```
-
-Note that you need to install the `mocha` npm package yourself. This Meteor package does not include it automatically, so you can use pretty much any version of Mocha you want (v2+) as long as its API is compatible with how this package works.
 
 ## Run app tests
 

@@ -1,12 +1,4 @@
-// We let the package user install whatever mocha version they want
-// on the server. This will throw an error if they haven't done so.
-import { checkNpmVersions } from 'meteor/tmeasday:check-npm-versions';
-checkNpmVersions({
-  'mocha': '2.x.x'
-});
-
-// We can't use `import` here because it will be hoisted to before the `checkNpmVersions` call
-const Mocha = require('mocha');
+import Mocha from 'mocha';
 
 // Initialize a new `Mocha` test runner instance
 const mainMocha = new Mocha();

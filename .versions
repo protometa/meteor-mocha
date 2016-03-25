@@ -1,0 +1,15 @@
+babel-compiler@6.5.2-rc.12
+babel-runtime@0.1.6-rc.12
+base64@1.0.6-rc.12
+check@1.1.2-rc.12
+dispatch:mocha@0.0.2
+ecmascript@0.4.1-rc.12
+ecmascript-runtime@0.2.8-rc.12
+ejson@1.0.9-rc.12
+jquery@1.11.6-rc.12
+meteor@1.1.12-rc.12
+modules@0.5.1-rc.12
+modules-runtime@0.6.1-rc.12
+practicalmeteor:mocha-core@0.1.4
+promise@0.6.5-rc.12
+underscore@1.0.6-rc.12
