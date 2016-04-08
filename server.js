@@ -10,10 +10,12 @@ Package['practicalmeteor:mocha-core'].setupGlobals(mainMocha);
 // Before Meteor calls the `start` function, app tests will be parsed and loaded by Mocha
 function start() {
   mainMocha.run((failureCount) => {
-    if (failureCount > 0) {
-      process.exit(2); // exit with non-zero status if there were failures
-    } else {
-      process.exit(0);
+    if (!process.env.TEST_WATCH) {
+      if (failureCount > 0) {
+        process.exit(2); // exit with non-zero status if there were failures
+      } else {
+        process.exit(0);
+      }
     }
   });
 }

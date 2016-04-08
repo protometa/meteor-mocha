@@ -12,10 +12,16 @@ In a Meteor 1.3+ app directory:
 meteor add dispatch:mocha
 ```
 
-## Run app tests
+## Run app unit tests
 
 ```bash
 meteor test --once --driver-package dispatch:mocha
+```
+
+## Run app unit tests in watch mode
+
+```bash
+TEST_WATCH=1 meteor test --driver-package dispatch:mocha
 ```
 
 ### Run with a different reporter
@@ -25,3 +31,17 @@ The default Mocha reporter for server tests is the "spec" reporter. You can set 
 ```bash
 SERVER_TEST_REPORTER="dot" meteor test --once --driver-package dispatch:mocha
 ```
+
+## NPM Scripts
+
+A good best practice is to define these commands as run scripts in your app's `package.json` file. For example:
+
+```json
+"scripts": {
+  "test": "meteor test --once --driver-package dispatch:mocha",
+  "test:watch": "TEST_WATCH=1 meteor test --driver-package dispatch:mocha",
+  "start": "meteor run"
+}
+```
+
+And then run `npm test` for one-time/CI mode or `npm run test:watch` to rerun the tests whenever you change a file.

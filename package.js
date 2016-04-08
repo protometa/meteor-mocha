@@ -2,7 +2,7 @@ Package.describe({
   name: "dispatch:mocha",
   summary: "Run server-only package or app tests with Mocha",
   git: "https://github.com/dispatch/meteor-mocha.git",
-  version: '0.0.2',
+  version: '0.0.3',
   testOnly: true,
 });
 
