@@ -12,10 +12,13 @@ function start() {
   mochaInstance.run((failureCount) => {
     if (!process.env.TEST_WATCH) {
       if (failureCount > 0) {
-        process.exit(2); // exit with non-zero status if there were failures
+        process.exitCode = 2; // exit with non-zero status if there were failures
       } else {
-        process.exit(0);
+        process.exitCode = 0;
       }
+      // Allow meteor process to handle the SIGINT status and shutdown
+      // gracefully instead of using process.exit();
+      process.kill(process.pid, 'SIGINT');
     }
   });
 }
