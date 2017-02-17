@@ -23,9 +23,11 @@ If you do have client tests, you'll need to specify which browser to use and ins
 **Chrome**
 
 ```bash
-$ npm i --save-dev selenium-webdriver chromedriver
+$ npm i --save-dev selenium-webdriver@3.0.0-beta-2 chromedriver
 $ TEST_BROWSER_DRIVER=chrome meteor test --once --driver-package dispatch:mocha
 ```
+
+NOTE: Currently you must pin to exactly version 3.0.0-beta-2 of selenium-webdriver because the latest only works on Node 6.x
 
 **Nightmare/Electron**
 
