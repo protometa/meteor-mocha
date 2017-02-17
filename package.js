@@ -1,18 +1,21 @@
 Package.describe({
   name: "dispatch:mocha",
-  summary: "Run server-only package or app tests with Mocha",
+  summary: "Run package or app tests with Mocha, using a headless browser for the client tests",
   git: "https://github.com/DispatchMe/meteor-mocha.git",
-  version: '0.0.9',
+  version: '0.1.0',
   testOnly: true,
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom('1.3');
-
   api.use([
     'practicalmeteor:mocha-core@1.0.0',
-    'ecmascript',
+    'ecmascript@0.3.0',
+  ]);
+
+  api.use([
+    'aldeed:browser-tests@0.0.1'
   ], 'server');
 
+  api.mainModule('client.js', 'client');
   api.mainModule('server.js', 'server');
 });
