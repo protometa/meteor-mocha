@@ -6,7 +6,7 @@ const reporter = process.env.SERVER_TEST_REPORTER || 'spec';
 // If TEST_BROWSER_DRIVER is not set, assume the app has only server tests
 const shouldRunClientTests = !!process.env.TEST_BROWSER_DRIVER;
 
-// pass the current env settings to the client.
+// pass the current env settings to the client.//
 Meteor.startup(() => {
   Meteor.settings.public = Meteor.settings.public || {};
   Meteor.settings.public.CLIENT_TEST_REPORTER = process.env.CLIENT_TEST_REPORTER;
