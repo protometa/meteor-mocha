@@ -6,10 +6,7 @@ const reporter = process.env.SERVER_TEST_REPORTER || 'spec';
 // If TEST_BROWSER_DRIVER is not set, assume the app has only server tests
 const shouldRunClientTests = !!process.env.TEST_BROWSER_DRIVER;
 
-let shouldRunInParallel = false
-if (process.env.TEST_PARALLEL && (process.env.TEST_PARALLEL === ('true' || 1))) {
-  shouldRunInParallel = true
-}
+const shouldRunInParallel = !!process.env.TEST_PARALLEL;
 
 // pass the current env settings to the client.//
 Meteor.startup(() => {
