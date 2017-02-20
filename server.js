@@ -8,7 +8,7 @@ const shouldRunClientTests = !!process.env.TEST_BROWSER_DRIVER;
 
 const shouldRunInParallel = !!process.env.TEST_PARALLEL;
 
-// pass the current env settings to the client.//
+// pass the current env settings to the client.
 Meteor.startup(() => {
   Meteor.settings.public = Meteor.settings.public || {};
   Meteor.settings.public.CLIENT_TEST_REPORTER = process.env.CLIENT_TEST_REPORTER;
@@ -30,9 +30,18 @@ function clientLogBuffer(line) {
 }
 
 function printHeader(type) {
-  console.log('\n--------------------------------');
-  console.log(`----- RUNNING ${type} TESTS -----`);
-  console.log('--------------------------------\n');
+  const lines = [
+    '\n--------------------------------',
+    `----- RUNNING ${type} TESTS -----`,
+    '--------------------------------\n',
+  ];
+  lines.forEach(line => {
+    if (type === 'CLIENT') {
+      clientLogBuffer(line);
+    } else {
+      console.log(line);
+    }
+  });
 }
 
 let callCount = 0;
@@ -45,8 +54,7 @@ function exitIfDone(type, failures) {
   } else {
     serverFailures = failures;
     serverTestsDone = true;
-    if (shouldRunClientTests) {
-      printHeader('CLIENT');
+    if (shouldRunClientTests) {//
       clientLines.forEach((line) => {
         // printing and removing the extra new-line character. The first was added by the client log, the second here.
         console.log(line.replace(/\n$/, ''));
@@ -68,11 +76,13 @@ function exitIfDone(type, failures) {
       } else {
         process.exit(0);
       }
-    }
+    }//
   }
 }
 
 function serverTests(cb){
+  printHeader('SERVER');
+
   // We need to set the reporter when the tests actually run to ensure no conflicts with
   // other test driver packages that may be added to the app but are not actually being
   // used on this run.
@@ -86,6 +96,8 @@ function serverTests(cb){
 }
 
 function clientTests(cb){
+  printHeader('CLIENT');
+
   startBrowser({
     stdout(data) {
       clientLogBuffer(data.toString());
@@ -106,9 +118,6 @@ function start() {
     console.log('SKIPPING CLIENT TESTS BECAUSE TEST_BROWSER_DRIVER ENVIRONMENT VARIABLE IS NOT SET');
   }
 
-  printHeader('SERVER');
-
-
   // Run in PARALLEL or SERIES
   // run in series is a better default IMHO since it avoids db and state conflicts for newbs
   // if you want parallel you will know these risks
@@ -118,19 +127,14 @@ function start() {
     serverTests()
     // Simultaneously start headless browser to run the client tests
     if (shouldRunClientTests) {
-      // printHeader('CLIENT');
       clientTests();
     } else {
       exitIfDone('client', 0);
-    }//
-
+    }
   } else { // run in series by default
-
-    printHeader('SERVER');
     serverTests(function(){
       // Simultaneously start headless browser to run the client tests
       if (shouldRunClientTests) {
-        printHeader('CLIENT');
         clientTests();
       } else {
         exitIfDone('client', 0);
