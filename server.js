@@ -19,7 +19,7 @@ Meteor.startup(() => {
 // finished running and then dump the buffer to the screen and continue
 // logging in real time after that if client tests are still running.
 let serverTestsDone = false;
-let clientLines = [];
+const clientLines = [];
 function clientLogBuffer(line) {
   if (serverTestsDone) {
     // printing and removing the extra new-line character. The first was added by the client log, the second here.
@@ -54,7 +54,7 @@ function exitIfDone(type, failures) {
   } else {
     serverFailures = failures;
     serverTestsDone = true;
-    if (shouldRunClientTests) {//
+    if (shouldRunClientTests) {
       clientLines.forEach((line) => {
         // printing and removing the extra new-line character. The first was added by the client log, the second here.
         console.log(line.replace(/\n$/, ''));
@@ -80,7 +80,7 @@ function exitIfDone(type, failures) {
   }
 }
 
-function serverTests(cb){
+function serverTests(cb) {
   printHeader('SERVER');
 
   // We need to set the reporter when the tests actually run to ensure no conflicts with
@@ -92,11 +92,9 @@ function serverTests(cb){
     exitIfDone('server', failureCount);
     if (cb) { cb(); }
   });
-
 }
 
-function clientTests(cb){
-
+function clientTests(cb) {
   if (!shouldRunClientTests) {
     console.log('SKIPPING CLIENT TESTS BECAUSE TEST_BROWSER_DRIVER ENVIRONMENT VARIABLE IS NOT SET');
     exitIfDone('client', 0);
@@ -121,17 +119,15 @@ function clientTests(cb){
 
 // Before Meteor calls the `start` function, app tests will be parsed and loaded by Mocha
 function start() {
-
   // Run in PARALLEL or SERIES
-  // run in series is a better default IMHO since it avoids db and state conflicts for newbs
-  // if you want parallel you will know these risks
-  if (shouldRunInParallel){
+  // Running in series is a better default since it avoids db and state conflicts for newbs.
+  // If you want parallel you will know these risks.
+  if (shouldRunInParallel) {
     console.log('Warning: Running in parallel can cause side-effects from state/db sharing');
-    
+
     serverTests();
     clientTests();
-
-  } else { // run in series by default
+  } else {
     serverTests(() => {
       clientTests();
     });

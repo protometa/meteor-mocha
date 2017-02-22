@@ -94,3 +94,12 @@ A good best practice is to define these commands as run scripts in your app's `p
 ```
 
 And then run `npm run test-chrome`, etc.
+
+## Contributing
+
+Run eslint:
+
+```bash
+$ npm i
+$ npm run lint
+```
