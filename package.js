@@ -13,7 +13,7 @@ Package.onUse(function onUse(api) {
   ]);
 
   api.use([
-    'aldeed:browser-tests@0.0.1'
+    'aldeed:browser-tests@0.1.0'
   ], 'server');
 
   api.mainModule('client.js', 'client');

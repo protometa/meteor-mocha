@@ -5,8 +5,8 @@ const reporter = process.env.SERVER_TEST_REPORTER || 'spec';
 
 // If TEST_BROWSER_DRIVER is not set, assume the app has only server tests
 const shouldRunClientTests = !!process.env.TEST_BROWSER_DRIVER;
-
 const shouldRunInParallel = !!process.env.TEST_PARALLEL;
+const shouldExitWhenDone = !process.env.TEST_WATCH;
 
 // pass the current env settings to the client.
 Meteor.startup(() => {
@@ -70,13 +70,13 @@ function exitIfDone(type, failures) {
       console.log(`CLIENT FAILURES: ${clientFailures}`);
       console.log('--------------------------------');
     }
-    if (!process.env.TEST_WATCH) {
+    if (shouldExitWhenDone) {
       if (clientFailures + serverFailures > 0) {
         process.exit(1); // exit with non-zero status if there were failures
       } else {
         process.exit(0);
       }
-    }//
+    }
   }
 }
 
@@ -90,11 +90,11 @@ function serverTests(cb) {
 
   mochaInstance.run((failureCount) => {
     exitIfDone('server', failureCount);
-    if (cb) { cb(); }
+    if (cb) cb();
   });
 }
 
-function clientTests(cb) {
+function clientTests() {
   if (!shouldRunClientTests) {
     console.log('SKIPPING CLIENT TESTS BECAUSE TEST_BROWSER_DRIVER ENVIRONMENT VARIABLE IS NOT SET');
     exitIfDone('client', 0);
@@ -112,7 +112,6 @@ function clientTests(cb) {
     },
     done(failureCount) {
       exitIfDone('client', failureCount);
-      if (cb) { cb(); }
     },
   });
 }
