@@ -15,16 +15,6 @@ function runTests() {
   if (invert) mocha.options.invert = invert;
   mocha.reporter(clientReporter || reporter);
 
-  // let runtimeArgs = Meteor.settings.public.runtimeArgs
-  // if (runtimeArgs.mochaOptions.grep) { mocha.grep(runtimeArgs.mochaOptions.grep) }
-  // if (runtimeArgs.mochaOptions.invert) { mocha.options.invert = runtimeArgs.mochaOptions.invert }
-  //
-  // let clientReporter  = runtimeArgs.mochaOptions.reporter
-  // if (runtimeArgs.mochaOptions.clientReporter){
-  //   clientReporter  = runtimeArgs.mochaOptions.clientReporter
-  // }
-  // mocha.reporter(clientReporter);
-
   // These `window` properties are all used by the client testing script in the
   // browser-tests package to know what is happening.
   window.testsAreRunning = true;
