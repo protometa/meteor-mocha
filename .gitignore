@@ -1,1 +1,3 @@
 tests/dummy_app/packages/meteor-mocha
+node_modules
+npm-debug.log
