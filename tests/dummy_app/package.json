@@ -9,8 +9,5 @@
   "dependencies": {
     "babel-runtime": "^6.23.0",
     "nightmare": "^2.9.1"
-  },
-  "devDependencies": {
-    "eslint": "^2.10.2"
   }
 }
