@@ -1,5 +1,5 @@
 {
-  "name": "experimental-meteor-mocha-electron",
+  "name": "dummy-app-for-mocha-testing",
   "private": true,
   "scripts": {
     "test": "TEST_BROWSER_DRIVER=nightmare meteor test --once --full-app --driver-package dispatch:mocha",
@@ -8,17 +8,9 @@
   },
   "dependencies": {
     "babel-runtime": "^6.23.0",
-    "debug": "^2.6.1",
-    "meteor-node-stubs": "~0.2.0",
     "nightmare": "^2.9.1"
   },
-  "devDependencies": {},
-  "standard": {
-    "globals": [
-      "Meteor",
-      "describe",
-      "it",
-      "Package"
-    ]
+  "devDependencies": {
+    "eslint": "^2.10.2"
   }
 }
