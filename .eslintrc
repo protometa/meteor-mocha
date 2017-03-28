@@ -8,12 +8,16 @@
   "globals": {
     "describe": false,
     "expect": false,
-    "Meteor": false
+    "Meteor": false,
+    "window": false
   },
   "rules": {
     "arrow-body-style": 0,
     "consistent-return": 1,
+    "import/extensions": 0,
     "import/no-unresolved": [2, { "ignore": ["^meteor/"] }],
+    "import/no-extraneous-dependencies": 0,
+    "import/prefer-default-export": 0,
     "max-len": 0,
     "new-cap": 0,
     "newline-per-chained-call": 0,
@@ -21,6 +25,7 @@
     "no-param-reassign": 0,
     "no-unused-expressions": 0,
     "no-use-before-define": [2, "nofunc"],
+    "no-plusplus": 0,
     "react/no-did-update-set-state": 0,
     "react/no-multi-comp": 0,
     "react/prefer-stateless-function": 0,

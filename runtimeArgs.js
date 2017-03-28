@@ -1,37 +1,37 @@
-function setArgs () {
+export default function setArgs() {
+  const {
+    CLIENT_TEST_REPORTER,
+    MOCHA_GREP,
+    MOCHA_INVERT,
+    MOCHA_REPORTER,
+    SERVER_TEST_REPORTER,
+    TEST_BROWSER_DRIVER,
+    TEST_CLIENT,
+    TEST_PARALLEL,
+    TEST_SERVER,
+    TEST_WATCH,
+  } = process.env;
 
-  let runClient = true
-  if (process.env.TEST_CLIENT === 'false' || process.env.TEST_CLIENT === "0"){
-    runClient = false
-  }
+  const runtimeArgs = {
+    mochaOptions: {
+      grep: MOCHA_GREP || false,
+      invert: !!MOCHA_INVERT,
+      reporter: MOCHA_REPORTER || 'tap',
+      serverReporter: SERVER_TEST_REPORTER,
+      clientReporter: CLIENT_TEST_REPORTER,
+    },
+    runnerOptions: {
+      runClient: (TEST_CLIENT !== 'false' && TEST_CLIENT !== '0'),
+      runServer: (TEST_SERVER !== 'false' && TEST_SERVER !== '0'),
+      browserDriver: TEST_BROWSER_DRIVER,
+      testWatch: TEST_WATCH,
+      runParallel: !!TEST_PARALLEL,
+    },
+  };
 
-  let runServer = true
-  if (process.env.TEST_SERVER === 'false' || process.env.TEST_SERVER === "0"){
-    runServer = false
-  }
-
-  let runtimeArgs = {}
-  runtimeArgs.runnerOptions = {
-    runClient: runClient,
-    runServer: runServer,
-    browserDriver: process.env.TEST_BROWSER_DRIVER,
-    testWatch: process.env.TEST_WATCH,
-    runParallel: !!process.env.TEST_PARALLEL
-  }
-
-  runtimeArgs.mochaOptions = {
-    grep : process.env.MOCHA_GREP || false,
-    grepInvert: !!process.env.MOCHA_INVERT,
-    reporter: process.env.MOCHA_REPORTER || 'tap',
-    serverReporter: process.env.SERVER_TEST_REPORTER,
-    clientReporter: process.env.CLIENT_TEST_REPORTER
-  }
-
-  //set the variables for the client to access as well.
+  // Set the variables for the client to access as well.
   Meteor.settings.public = Meteor.settings.public || {};
-  Meteor.settings.public.runtimeArgs = runtimeArgs
+  Meteor.settings.public.mochaRuntimeArgs = runtimeArgs;
 
-  return runtimeArgs
+  return runtimeArgs;
 }
-
-export { setArgs };

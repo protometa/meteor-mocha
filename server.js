@@ -1,10 +1,10 @@
 import { mochaInstance } from 'meteor/practicalmeteor:mocha-core';
 import { startBrowser } from 'meteor/aldeed:browser-tests';
-import { setArgs } from './runtimeArgs'
 
-setArgs();
-const { mochaOptions, runnerOptions } = Meteor.settings.public.runtimeArgs || {};
-const { clientReporter, grep, invert, reporter } = mochaOptions || {};
+import setArgs from './runtimeArgs';
+
+const { mochaOptions, runnerOptions } = setArgs();
+const { grep, invert, reporter, serverReporter } = mochaOptions || {};
 
 // Since intermingling client and server log lines would be confusing,
 // the idea here is to buffer all client logs until server tests have
@@ -28,7 +28,7 @@ function printHeader(type) {
     `----- RUNNING ${type} TESTS -----`,
     '--------------------------------\n',
   ];
-  lines.forEach(line => {
+  lines.forEach((line) => {
     if (type === 'CLIENT') {
       clientLogBuffer(line);
     } else {
@@ -47,20 +47,18 @@ function exitIfDone(type, failures) {
   } else {
     serverFailures = failures;
     serverTestsDone = true;
-    if (runnerOptions.runClient) {
-      clientLines.forEach((line) => {
-        // printing and removing the extra new-line character. The first was added by the client log, the second here.
-        console.log(line.replace(/\n$/, ''));
-      });
-    }
+    clientLines.forEach((line) => {
+      // printing and removing the extra new-line character. The first was added by the client log, the second here.
+      console.log(line.replace(/\n$/, ''));
+    });
   }
 
   if (callCount === 2) {
     if (runnerOptions.runClient) {
-      console.log('All client and server tests finished!\n');
+      console.log('All tests finished!\n');
       console.log('--------------------------------');
-      console.log(`SERVER FAILURES: ${serverFailures}`);
-      console.log(`CLIENT FAILURES: ${clientFailures}`);
+      if (runnerOptions.runServer) console.log(`SERVER FAILURES: ${serverFailures}`);
+      if (runnerOptions.runClient) console.log(`CLIENT FAILURES: ${clientFailures}`);
       console.log('--------------------------------');
     }
 
@@ -76,43 +74,54 @@ function exitIfDone(type, failures) {
 }
 
 function serverTests(cb) {
-  if (runnerOptions.runServer){
-    printHeader('SERVER');
-
-    // We need to set the reporter when the tests actually run to ensure no conflicts with
-    // other test driver packages that may be added to the app but are not actually being
-    // used on this run.
-    mochaInstance.reporter(reporter);
-
-    mochaInstance.run((failureCount) => {
-      exitIfDone('server', failureCount);
-      if (cb) cb();
-    });
+  if (!runnerOptions.runServer) {
+    console.log('SKIPPING SERVER TESTS BECAUSE TEST_SERVER=0');
+    exitIfDone('server', 0);
+    return;
   }
+
+  printHeader('SERVER');
+
+  if (grep) mocha.grep(grep);
+  if (invert) mocha.options.invert = invert;
+
+  // We need to set the reporter when the tests actually run to ensure no conflicts with
+  // other test driver packages that may be added to the app but are not actually being
+  // used on this run.
+  mochaInstance.reporter(serverReporter || reporter);
+
+  mochaInstance.run((failureCount) => {
+    exitIfDone('server', failureCount);
+    if (cb) cb();
+  });
 }
 
 function clientTests() {
-  if (runnerOptions.runClient){
-    if(!runnerOptions.browserDriver) {
-      console.log('SKIPPING CLIENT TESTS BECAUSE TEST_BROWSER_DRIVER ENVIRONMENT VARIABLE IS NOT SET');
-      exitIfDone('client', 0);
-      return;
-    }
-
-    printHeader('CLIENT');
-
-    startBrowser({
-      stdout(data) {
-        clientLogBuffer(data.toString());
-      },
-      stderr(data) {
-        clientLogBuffer(data.toString());
-      },
-      done(failureCount) {
-        exitIfDone('client', failureCount);
-      },
-    });
+  if (!runnerOptions.runClient) {
+    console.log('SKIPPING CLIENT TESTS BECAUSE TEST_CLIENT=0');
+    exitIfDone('client', 0);
+    return;
   }
+
+  if (!runnerOptions.browserDriver) {
+    console.log('SKIPPING CLIENT TESTS BECAUSE TEST_BROWSER_DRIVER ENVIRONMENT VARIABLE IS NOT SET');
+    exitIfDone('client', 0);
+    return;
+  }
+
+  printHeader('CLIENT');
+
+  startBrowser({
+    stdout(data) {
+      clientLogBuffer(data.toString());
+    },
+    stderr(data) {
+      clientLogBuffer(data.toString());
+    },
+    done(failureCount) {
+      exitIfDone('client', failureCount);
+    },
+  });
 }
 
 // Before Meteor calls the `start` function, app tests will be parsed and loaded by Mocha
