@@ -10,15 +10,17 @@ export default function setArgs() {
     TEST_PARALLEL,
     TEST_SERVER,
     TEST_WATCH,
+    XUNIT_FILE,
   } = process.env;
 
   const runtimeArgs = {
     mochaOptions: {
       grep: MOCHA_GREP || false,
       invert: !!MOCHA_INVERT,
-      reporter: MOCHA_REPORTER || 'tap',
+      reporter: MOCHA_REPORTER || 'spec',
       serverReporter: SERVER_TEST_REPORTER,
       clientReporter: CLIENT_TEST_REPORTER,
+      xUnitOutput: XUNIT_FILE,
     },
     runnerOptions: {
       runClient: (TEST_CLIENT !== 'false' && TEST_CLIENT !== '0'),

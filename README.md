@@ -78,6 +78,14 @@ The default Mocha reporter for server tests is the "spec" reporter. You can set 
 $ SERVER_TEST_REPORTER="dot" meteor test --once --driver-package dispatch:mocha
 ```
 
+#### Generate an XUnit file for server tests
+
+To generate an XUnit file, set `SERVER_TEST_REPORTER` to `xunit` and set `XUNIT_FILE` to the full path + filename, e.g., `$PWD/unit.xml`.
+
+```bash
+$ SERVER_TEST_REPORTER=xunit XUNIT_FILE=$PWD/unit.xml meteor test --once --driver-package dispatch:mocha
+```
+
 ### Run with a different client reporter
 
 The default Mocha reporter for client tests is the "spec" reporter. You can set the `CLIENT_TEST_REPORTER` environment variable to change it.
