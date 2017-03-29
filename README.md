@@ -58,7 +58,7 @@ By default both server and client tests run. To disable server tests: `TEST_SERV
 
 ### Run tests inclusively (grep), and exclusively (invert)
 
-To run any tests which names match a pattern, add the environment variabel `MOCHA_GREP=your_string`. This will apply to both client and server tests.
+To run all tests with names that match a pattern, add the environment variable `MOCHA_GREP=your_string`. This will apply to both client and server tests.
 
 To exclude any tests, you must use the grep option above plus `MOCHA_INVERT=1`. For example, to exclude tests named 'TODO:' ( which you may want to exclude from your continuous integration workflow) you would pass at runtime `MOCHA_GREP=your_string MOCHA_INVERT=1`
 
