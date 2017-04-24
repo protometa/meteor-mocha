@@ -1,8 +1,8 @@
 Package.describe({
   name: 'dispatch:mocha',
-  summary: 'Run package or app tests with Mocha, using a headless browser for the client tests',
+  summary: 'Run Meteor package or app tests with Mocha',
   git: 'https://github.com/DispatchMe/meteor-mocha.git',
-  version: '0.3.0',
+  version: '0.4.0',
   testOnly: true,
 });
 

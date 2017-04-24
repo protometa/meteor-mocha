@@ -1,12 +1,12 @@
 aldeed:browser-tests@0.1.0
-babel-compiler@6.14.1
+babel-compiler@6.18.1
 babel-runtime@1.0.1
-dispatch:mocha@0.3.0
-ecmascript@0.6.3
+dispatch:mocha@0.4.0
+ecmascript@0.7.2
 ecmascript-runtime@0.3.15
 meteor@1.6.1
-modules@0.7.9
-modules-runtime@0.7.9
+modules@0.8.1
+modules-runtime@0.7.10
 practicalmeteor:mocha-core@1.0.0
 promise@0.8.8
 underscore@1.0.10
