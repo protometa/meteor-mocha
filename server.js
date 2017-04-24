@@ -83,8 +83,8 @@ function serverTests(cb) {
 
   printHeader('SERVER');
 
-  if (grep) mocha.grep(grep);
-  if (invert) mocha.options.invert = invert;
+  if (grep) mochaInstance.grep(grep);
+  if (invert) mochaInstance.options.invert = invert;
 
   // We need to set the reporter when the tests actually run to ensure no conflicts with
   // other test driver packages that may be added to the app but are not actually being
