@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## 0.4.1
+
+Fix grep/invert options
+
 ## 0.4.0
 
-* Merged `dispatch:mocha-browser` into this package. To replicate that package, run in watch mode without setting the `TEST_BROWSER_DRIVER` environment variable.
+Merged `dispatch:mocha-browser` into this package. To replicate that package, run in watch mode without setting the `TEST_BROWSER_DRIVER` environment variable.
 
 ## 0.3.0
 

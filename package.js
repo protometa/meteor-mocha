@@ -2,7 +2,7 @@ Package.describe({
   name: 'dispatch:mocha',
   summary: 'Run Meteor package or app tests with Mocha',
   git: 'https://github.com/DispatchMe/meteor-mocha.git',
-  version: '0.4.0',
+  version: '0.4.1',
   testOnly: true,
 });
 

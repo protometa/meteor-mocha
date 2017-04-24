@@ -1,7 +1,7 @@
 aldeed:browser-tests@0.1.0
 babel-compiler@6.18.1
 babel-runtime@1.0.1
-dispatch:mocha@0.4.0
+dispatch:mocha@0.4.1
 ecmascript@0.7.2
 ecmascript-runtime@0.3.15
 meteor@1.6.1
