@@ -54,11 +54,12 @@ function exitIfDone(type, failures) {
   }
 
   if (callCount === 2) {
-    if (runnerOptions.runClient) {
+    // We only need to show this final summary if we ran both kinds of tests in the same console
+    if (runnerOptions.runServer && runnerOptions.runClient && runnerOptions.browserDriver) {
       console.log('All tests finished!\n');
       console.log('--------------------------------');
-      if (runnerOptions.runServer) console.log(`SERVER FAILURES: ${serverFailures}`);
-      if (runnerOptions.runClient) console.log(`CLIENT FAILURES: ${clientFailures}`);
+      console.log(`SERVER FAILURES: ${serverFailures}`);
+      console.log(`CLIENT FAILURES: ${clientFailures}`);
       console.log('--------------------------------');
     }
 
@@ -106,7 +107,10 @@ function clientTests() {
   }
 
   if (!runnerOptions.browserDriver) {
-    console.log('SKIPPING CLIENT TESTS BECAUSE TEST_BROWSER_DRIVER ENVIRONMENT VARIABLE IS NOT SET');
+    console.log(
+      'Load the app in a browser to run client tests, or set the TEST_BROWSER_DRIVER environment variable. ' +
+      'See https://github.com/DispatchMe/meteor-mocha/blob/master/README.md#run-app-tests'
+    );
     exitIfDone('client', 0);
     return;
   }

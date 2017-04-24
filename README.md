@@ -10,15 +10,56 @@ In a Meteor 1.3+ app directory:
 meteor add dispatch:mocha
 ```
 
-## Run app unit tests
+## Run app tests
 
-If you do not have any tests in client code:
+To run unit tests one time and exit:
 
 ```bash
 meteor test --once --driver-package dispatch:mocha
 ```
 
-If you do have client tests, you'll need to specify which browser to use and install the necessary NPM packages. To do this, set the `TEST_BROWSER_DRIVER` environment variable. There are currently 3 supported browsers:
+To run full-app tests one time and exit:
+
+```bash
+meteor test --once --full-app --driver-package dispatch:mocha
+```
+
+To run in watch mode, restarting as you change files, add `TEST_WATCH=1` before your test command and remove the `--once` flag. For example:
+
+```bash
+TEST_WATCH=1 meteor test --driver-package dispatch:mocha
+```
+
+> NOTE: Watch mode does not properly rerun client tests if you change only client code. To work around this, you can add or remove whitespace from a server file, and that will trigger both server and client tests to rerun.
+
+If you have client tests, you can either open any browser to run them, or install a browser driver to run them headless.
+
+### Run client tests in any browser manually
+
+Load `http://localhost:3000` in a browser to run your client tests and see the results. This only works well in watch mode because otherwise the server will likely shut down before you finish running the client tests.
+
+The test results are reported in a div with ID `mocha`. If you run with the `--full-app` flag, this will likely be overlaid weirdly on top of your app, so you should add CSS to your app in order to be able to see both. For example, this will put the test results in a sidebar with resizeable width:
+
+```css
+div#mocha {
+  background: white;
+  border-right: 2px solid black;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  overflow: auto;
+  padding: 1rem;
+  position: fixed;
+  resize: horizontal;
+  top: 0;
+  width: 20px;
+  z-index: 1000;
+}
+```
+
+### Run client tests headless
+
+You'll need to specify which headless browser to use and install the necessary NPM packages. To do this, set the `TEST_BROWSER_DRIVER` environment variable. There are currently 3 supported browsers:
 
 **Chrome**
 
@@ -45,30 +86,21 @@ $ npm i --save-dev phantomjs-prebuilt
 $ TEST_BROWSER_DRIVER=phantomjs meteor test --once --driver-package dispatch:mocha
 ```
 
-### Run in watch mode
-
-To run in watch mode, restarting as you change files, add `TEST_WATCH=1` before your test command and remove the `--once` flag.
-
-NOTE: Watch mode does not properly rerun client tests if you change only client code. To work around this, you can add or remove whitespace from a server file, and that will trigger both server and client tests to rerun.
-
-
-### Run only server or client tests
+### Run only server or only client tests
 
 By default both server and client tests run. To disable server tests: `TEST_SERVER=0`. Likewise for client: `TEST_CLIENT=0`
 
-### Run tests inclusively (grep), and exclusively (invert)
+### Run tests inclusively (grep) or exclusively (invert)
 
 To run all tests with names that match a pattern, add the environment variable `MOCHA_GREP=your_string`. This will apply to both client and server tests.
 
-To exclude any tests, you must use the grep option above plus `MOCHA_INVERT=1`. For example, to exclude tests named 'TODO:' ( which you may want to exclude from your continuous integration workflow) you would pass at runtime `MOCHA_GREP=your_string MOCHA_INVERT=1`
+To exclude any tests, you must use the grep option above plus `MOCHA_INVERT=1`. For example, to exclude tests named 'TODO:' (which you may want to exclude from your continuous integration workflow) you would pass at runtime `MOCHA_GREP=your_string MOCHA_INVERT=1`
 
 ### Run in parallel
 
-By default dispatch:mocha will run in series. This is a safety mechanism since running a client test and server test which depend on DB state may have side-effects.
+By default dispatch:mocha will run in series. This is a safety mechanism since running a client test and server test which depend on DB state may have side effects.
 
-If you design your client and server tests to not share state, then you can run tests faster.
-
-Run in parallel by exporting the environment variable `TEST_PARALLEL=1` before running.
+If you design your client and server tests to not share state, then you can run tests faster. Run in parallel by exporting the environment variable `TEST_PARALLEL=1` before running.
 
 ### Run with a different server reporter
 
@@ -91,7 +123,7 @@ $ SERVER_TEST_REPORTER=xunit XUNIT_FILE=$PWD/unit.xml meteor test --once --drive
 The default Mocha reporter for client tests is the "spec" reporter. You can set the `CLIENT_TEST_REPORTER` environment variable to change it.
 
 ```bash
-$ CLIENT_TEST_REPORTER="tap" meteor test --once --driver-package dispatch:mocha-phantomjs
+$ CLIENT_TEST_REPORTER="tap" meteor test --once --driver-package dispatch:mocha
 ```
 
 Because of the differences between client and server code, not all reporters will work as client reporters. "spec" and "tap" are confirmed to work.
@@ -109,18 +141,11 @@ A good best practice is to define these commands as run scripts in your app's `p
   "test-app-phantom": "TEST_BROWSER_DRIVER=phantomjs meteor test --full-app --once --driver-package dispatch:mocha",
   "test-watch": "TEST_BROWSER_DRIVER=chrome TEST_WATCH=1 meteor test --driver-package dispatch:mocha",
   "test-app-watch": "TEST_BROWSER_DRIVER=chrome TEST_WATCH=1 meteor test --full-app --driver-package dispatch:mocha",
+  "test-watch-browser": "TEST_WATCH=1 meteor test --driver-package dispatch:mocha",
+  "test-app-watch-browser": "TEST_WATCH=1 meteor test --full-app --driver-package dispatch:mocha",
   "lint": "eslint .",
   "start": "meteor run"
 }
 ```
 
 And then run `npm run test-chrome`, etc.
-
-## Contributing
-
-Run eslint:
-
-```bash
-$ npm i
-$ npm run lint
-```
