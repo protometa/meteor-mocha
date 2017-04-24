@@ -1,5 +1,5 @@
 import { mocha } from 'meteor/practicalmeteor:mocha-core';
-
+import prepForHTMLReporter from './prepForHTMLReporter';
 import './browser-shim';
 
 // Run the client tests. Meteor calls the `runTests` function exported by
@@ -16,16 +16,25 @@ function runTests() {
   const { clientReporter, grep, invert, reporter } = mochaOptions || {};
   if (grep) mocha.grep(grep);
   if (invert) mocha.options.invert = invert;
-  mocha.reporter(clientReporter || reporter);
 
-  // These `window` properties are all used by the client testing script in the
-  // browser-tests package to know what is happening.
-  window.testsAreRunning = true;
-  mocha.run((failures) => {
-    window.testsAreRunning = false;
-    window.testFailures = failures;
-    window.testsDone = true;
-  });
+  if (runnerOptions.browserDriver) {
+    mocha.reporter(clientReporter || reporter);
+
+    // These `window` properties are all used by the client testing script in the
+    // browser-tests package to know what is happening.
+    window.testsAreRunning = true;
+    mocha.run((failures) => {
+      window.testsAreRunning = false;
+      window.testFailures = failures;
+      window.testsDone = true;
+    });
+  } else {
+    // If we're not running client tests automatically in a headless browser, then we
+    // probably are going to want to see an HTML reporter when we load the page.
+    prepForHTMLReporter(mocha);
+    mocha.reporter('html');
+    mocha.run();
+  }
 }
 
 export { runTests };
