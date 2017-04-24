@@ -1,4 +1,4 @@
-export default function prepForHTMLReporter(mocha) {
+export default function prepForHTMLReporter() {
   // Add the CSS from CDN
   const link = document.createElement('link');
   link.setAttribute('rel', 'stylesheet');

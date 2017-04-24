@@ -107,10 +107,8 @@ function clientTests() {
   }
 
   if (!runnerOptions.browserDriver) {
-    console.log(
-      'Load the app in a browser to run client tests, or set the TEST_BROWSER_DRIVER environment variable. ' +
-      'See https://github.com/DispatchMe/meteor-mocha/blob/master/README.md#run-app-tests'
-    );
+    console.log('Load the app in a browser to run client tests, or set the TEST_BROWSER_DRIVER environment variable. ' +
+      'See https://github.com/DispatchMe/meteor-mocha/blob/master/README.md#run-app-tests');
     exitIfDone('client', 0);
     return;
   }
