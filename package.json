@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Run Meteor package or app tests with Mocha",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint ./package"
   },
   "author": "Dispatch (dispatch.me)",
   "license": "MIT",

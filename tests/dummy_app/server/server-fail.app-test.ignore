@@ -1,5 +1,0 @@
-describe('Failing server suite ', function () {
-  it('failing test', () => {
-    throw "server"
-  })
-})

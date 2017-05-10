@@ -1,9 +1,0 @@
-/* eslint-env mocha */
-
-if (Meteor.isClient) {
-  describe('Failing client suite', () => {
-    it('throws an error', () => {
-      throw 'whatever'
-    })
-  })
-}
