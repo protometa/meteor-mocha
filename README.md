@@ -64,16 +64,17 @@ You'll need to specify which headless browser to use and install the necessary N
 **Chrome**
 
 ```bash
-$ npm i --save-dev selenium-webdriver@3.0.0-beta-2 chromedriver
+$ meteor npm i -E --save-dev selenium-webdriver@3.0.0-beta-2
+$ meteor npm i --save-dev chromedriver
 $ TEST_BROWSER_DRIVER=chrome meteor test --once --driver-package dispatch:mocha
 ```
 
-NOTE: Currently you must pin to exactly version 3.0.0-beta-2 of selenium-webdriver because the latest only works on Node 6.x
+NOTE: Currently you must pin to exactly version 3.0.0-beta-2 of selenium-webdriver because the latest only works on Node 6.x. The `-E` in the command above is important!
 
 **Nightmare/Electron**
 
 ```bash
-$ npm i --save-dev nightmare
+$ meteor npm i --save-dev nightmare
 $ TEST_BROWSER_DRIVER=nightmare meteor test --once --driver-package dispatch:mocha
 ```
 
@@ -82,7 +83,7 @@ You can export TEST_BROWSER_VISIBLE=1 to show the Electron window while tests ru
 **PhantomJS**
 
 ```bash
-$ npm i --save-dev phantomjs-prebuilt
+$ meteor npm i --save-dev phantomjs-prebuilt
 $ TEST_BROWSER_DRIVER=phantomjs meteor test --once --driver-package dispatch:mocha
 ```
 
