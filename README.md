@@ -1,4 +1,6 @@
-# dispatch:mocha
+# meteortesting:mocha
+
+_Formerly published as dispatch:mocha. Originally created by [Dispatch](http://www.dispatch.me/) but now community maintained._
 
 A Mocha test driver package for Meteor 1.3. This package reports server AND client test results in the server console and can be used for running tests on a CI server or locally. This achieves what `spacejam` does but without the need for a separate Node package.
 
@@ -7,7 +9,7 @@ A Mocha test driver package for Meteor 1.3. This package reports server AND clie
 In a Meteor 1.3+ app directory:
 
 ```bash
-meteor add dispatch:mocha
+meteor add meteortesting:mocha
 ```
 
 ## Run app tests
@@ -15,19 +17,19 @@ meteor add dispatch:mocha
 To run unit tests one time and exit:
 
 ```bash
-meteor test --once --driver-package dispatch:mocha
+meteor test --once --driver-package meteortesting:mocha
 ```
 
 To run full-app tests one time and exit:
 
 ```bash
-meteor test --once --full-app --driver-package dispatch:mocha
+meteor test --once --full-app --driver-package meteortesting:mocha
 ```
 
 To run in watch mode, restarting as you change files, add `TEST_WATCH=1` before your test command and remove the `--once` flag. For example:
 
 ```bash
-TEST_WATCH=1 meteor test --driver-package dispatch:mocha
+TEST_WATCH=1 meteor test --driver-package meteortesting:mocha
 ```
 
 > NOTE: Watch mode does not properly rerun client tests if you change only client code. To work around this, you can add or remove whitespace from a server file, and that will trigger both server and client tests to rerun.
@@ -66,7 +68,7 @@ You'll need to specify which headless browser to use and install the necessary N
 ```bash
 $ meteor npm i -E --save-dev selenium-webdriver@3.0.0-beta-2
 $ meteor npm i --save-dev chromedriver
-$ TEST_BROWSER_DRIVER=chrome meteor test --once --driver-package dispatch:mocha
+$ TEST_BROWSER_DRIVER=chrome meteor test --once --driver-package meteortesting:mocha
 ```
 
 NOTE: Currently you must pin to exactly version 3.0.0-beta-2 of selenium-webdriver because the latest only works on Node 6.x. The `-E` in the command above is important!
@@ -75,7 +77,7 @@ NOTE: Currently you must pin to exactly version 3.0.0-beta-2 of selenium-webdriv
 
 ```bash
 $ meteor npm i --save-dev nightmare
-$ TEST_BROWSER_DRIVER=nightmare meteor test --once --driver-package dispatch:mocha
+$ TEST_BROWSER_DRIVER=nightmare meteor test --once --driver-package meteortesting:mocha
 ```
 
 You can export TEST_BROWSER_VISIBLE=1 to show the Electron window while tests run.
@@ -84,7 +86,7 @@ You can export TEST_BROWSER_VISIBLE=1 to show the Electron window while tests ru
 
 ```bash
 $ meteor npm i --save-dev phantomjs-prebuilt
-$ TEST_BROWSER_DRIVER=phantomjs meteor test --once --driver-package dispatch:mocha
+$ TEST_BROWSER_DRIVER=phantomjs meteor test --once --driver-package meteortesting:mocha
 ```
 
 ### Run only server or only client tests
@@ -99,7 +101,7 @@ To exclude any tests, you must use the grep option above plus `MOCHA_INVERT=1`. 
 
 ### Run in parallel
 
-By default dispatch:mocha will run in series. This is a safety mechanism since running a client test and server test which depend on DB state may have side effects.
+By default meteortesting:mocha will run in series. This is a safety mechanism since running a client test and server test which depend on DB state may have side effects.
 
 If you design your client and server tests to not share state, then you can run tests faster. Run in parallel by exporting the environment variable `TEST_PARALLEL=1` before running.
 
@@ -108,7 +110,7 @@ If you design your client and server tests to not share state, then you can run 
 The default Mocha reporter for server tests is the "spec" reporter. You can set the `SERVER_TEST_REPORTER` environment variable to change it.
 
 ```bash
-$ SERVER_TEST_REPORTER="dot" meteor test --once --driver-package dispatch:mocha
+$ SERVER_TEST_REPORTER="dot" meteor test --once --driver-package meteortesting:mocha
 ```
 
 #### Generate an XUnit file for server tests
@@ -116,7 +118,7 @@ $ SERVER_TEST_REPORTER="dot" meteor test --once --driver-package dispatch:mocha
 To generate an XUnit file, set `SERVER_TEST_REPORTER` to `xunit` and set `XUNIT_FILE` to the full path + filename, e.g., `$PWD/unit.xml`.
 
 ```bash
-$ SERVER_TEST_REPORTER=xunit XUNIT_FILE=$PWD/unit.xml meteor test --once --driver-package dispatch:mocha
+$ SERVER_TEST_REPORTER=xunit XUNIT_FILE=$PWD/unit.xml meteor test --once --driver-package meteortesting:mocha
 ```
 
 ### Run with a different client reporter
@@ -124,7 +126,7 @@ $ SERVER_TEST_REPORTER=xunit XUNIT_FILE=$PWD/unit.xml meteor test --once --drive
 The default Mocha reporter for client tests is the "spec" reporter. You can set the `CLIENT_TEST_REPORTER` environment variable to change it.
 
 ```bash
-$ CLIENT_TEST_REPORTER="tap" meteor test --once --driver-package dispatch:mocha
+$ CLIENT_TEST_REPORTER="tap" meteor test --once --driver-package meteortesting:mocha
 ```
 
 Because of the differences between client and server code, not all reporters will work as client reporters. "spec" and "tap" are confirmed to work.
@@ -136,14 +138,14 @@ A good best practice is to define these commands as run scripts in your app's `p
 ```json
 "scripts": {
   "pretest": "npm run lint --silent",
-  "test-chrome": "TEST_BROWSER_DRIVER=chrome meteor test --once --driver-package dispatch:mocha",
-  "test-app-chrome": "TEST_BROWSER_DRIVER=chrome meteor test --full-app --once --driver-package dispatch:mocha",
-  "test-phantom": "TEST_BROWSER_DRIVER=phantomjs meteor test --once --driver-package dispatch:mocha",
-  "test-app-phantom": "TEST_BROWSER_DRIVER=phantomjs meteor test --full-app --once --driver-package dispatch:mocha",
-  "test-watch": "TEST_BROWSER_DRIVER=chrome TEST_WATCH=1 meteor test --driver-package dispatch:mocha",
-  "test-app-watch": "TEST_BROWSER_DRIVER=chrome TEST_WATCH=1 meteor test --full-app --driver-package dispatch:mocha",
-  "test-watch-browser": "TEST_WATCH=1 meteor test --driver-package dispatch:mocha",
-  "test-app-watch-browser": "TEST_WATCH=1 meteor test --full-app --driver-package dispatch:mocha",
+  "test-chrome": "TEST_BROWSER_DRIVER=chrome meteor test --once --driver-package meteortesting:mocha",
+  "test-app-chrome": "TEST_BROWSER_DRIVER=chrome meteor test --full-app --once --driver-package meteortesting:mocha",
+  "test-phantom": "TEST_BROWSER_DRIVER=phantomjs meteor test --once --driver-package meteortesting:mocha",
+  "test-app-phantom": "TEST_BROWSER_DRIVER=phantomjs meteor test --full-app --once --driver-package meteortesting:mocha",
+  "test-watch": "TEST_BROWSER_DRIVER=chrome TEST_WATCH=1 meteor test --driver-package meteortesting:mocha",
+  "test-app-watch": "TEST_BROWSER_DRIVER=chrome TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
+  "test-watch-browser": "TEST_WATCH=1 meteor test --driver-package meteortesting:mocha",
+  "test-app-watch-browser": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
   "lint": "eslint .",
   "start": "meteor run"
 }

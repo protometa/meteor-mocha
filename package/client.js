@@ -6,7 +6,7 @@ import './browser-shim';
 // the driver package on the client.
 function runTests() {
   // We need to set the reporter when the tests actually run. This ensures that the
-  // correct reporter is used in the case where `dispatch:mocha-browser` is also
+  // correct reporter is used in the case where another Mocha test driver package is also
   // added to the app. Since both are testOnly packages, top-level client code in both
   // will run, potentially changing the reporter.
   const { mochaOptions, runnerOptions } = Meteor.settings.public.mochaRuntimeArgs || {};

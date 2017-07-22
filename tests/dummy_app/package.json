@@ -5,10 +5,10 @@
     "test": "npm run test:app:nightmare",
     "test:watch": "npm run test:app:nightmare:watch",
     "test:debug": "DEBUG='meteor-mocha:*' DEBUG_FD=1 DEBUG_COLORS=1 npm run test:app:nightmare:watch",
-    "test:unit:nightmare": "TEST_BROWSER_DRIVER=nightmare meteor test --once --driver-package dispatch:mocha",
-    "test:unit:nightmare:watch": "TEST_WATCH=1 TEST_BROWSER_DRIVER=nightmare meteor test --driver-package dispatch:mocha",
-    "test:app:nightmare": "TEST_BROWSER_DRIVER=nightmare meteor test --full-app --once --driver-package dispatch:mocha",
-    "test:app:nightmare:watch": "TEST_WATCH=1 TEST_BROWSER_DRIVER=nightmare meteor test --full-app --driver-package dispatch:mocha"
+    "test:unit:nightmare": "TEST_BROWSER_DRIVER=nightmare meteor test --once --driver-package meteortesting:mocha",
+    "test:unit:nightmare:watch": "TEST_WATCH=1 TEST_BROWSER_DRIVER=nightmare meteor test --driver-package meteortesting:mocha",
+    "test:app:nightmare": "TEST_BROWSER_DRIVER=nightmare meteor test --full-app --once --driver-package meteortesting:mocha",
+    "test:app:nightmare:watch": "TEST_WATCH=1 TEST_BROWSER_DRIVER=nightmare meteor test --full-app --driver-package meteortesting:mocha"
   },
   "dependencies": {
     "babel-runtime": "6.23.0",

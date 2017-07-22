@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.2
+
+Changed name to `meteortesting:mocha` and updated dependency name to `meteortesting:browser-tests`
+
 ## 0.4.1
 
 Fix grep/invert options

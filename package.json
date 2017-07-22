@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint ./package"
   },
-  "author": "Dispatch (dispatch.me)",
+  "author": "Dispatch Technologies, Inc. (http://www.dispatch.me/)",
   "license": "MIT",
   "devDependencies": {
     "babel-eslint": "7.2.3",
