@@ -78,6 +78,7 @@ function serverTests(cb) {
   if (!runnerOptions.runServer) {
     console.log('SKIPPING SERVER TESTS BECAUSE TEST_SERVER=0');
     exitIfDone('server', 0);
+    if (cb) cb();
     return;
   }
 
