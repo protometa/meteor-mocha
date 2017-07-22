@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.3
+
+Fix client tests not running when TEST_SERVER=0 (thanks @hexsprite)
+
 ## 0.4.2
 
 Changed name to `meteortesting:mocha` and updated dependency name to `meteortesting:browser-tests`
