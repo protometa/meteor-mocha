@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.4
+
+Fix broken dependency reference
+
 ## 0.4.3
 
 Fix client tests not running when TEST_SERVER=0 (thanks @hexsprite)
