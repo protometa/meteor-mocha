@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.5.0
+
+- Add colors for Nightmare
+- Bump meteortesting:browser-tests dependency
+
 ## 0.4.4
 
 Fix broken dependency reference
