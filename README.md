@@ -65,13 +65,22 @@ You'll need to specify which headless browser to use and install the necessary N
 
 **Chrome**
 
+Meteor 1.6+:
+
+```bash
+$ meteor npm i --save-dev selenium-webdriver chromedriver
+$ TEST_BROWSER_DRIVER=chrome meteor test --once --driver-package meteortesting:mocha
+```
+
+Meteor < 1.6:
+
+**NOTE: Currently you must pin to exactly version 3.0.0-beta-2 of selenium-webdriver for earlier versions of Meteor because the latest webdriver package only works on Node 6.x+. The `-E` in the command below is important!**
+
 ```bash
 $ meteor npm i -E --save-dev selenium-webdriver@3.0.0-beta-2
 $ meteor npm i --save-dev chromedriver
 $ TEST_BROWSER_DRIVER=chrome meteor test --once --driver-package meteortesting:mocha
 ```
-
-NOTE: Currently you must pin to exactly version 3.0.0-beta-2 of selenium-webdriver because the latest only works on Node 6.x. The `-E` in the command above is important!
 
 **Nightmare/Electron**
 
