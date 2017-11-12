@@ -1,0 +1,11 @@
+{
+  "name": "web_reporter_app",
+  "private": true,
+  "scripts": {
+    "test": "TEST_WATCH=1 meteor test --driver-package meteortesting:mocha"
+  },
+  "dependencies": {
+    "babel-runtime": "6.23.0",
+    "mocha": "^3.4.2"
+  }
+}

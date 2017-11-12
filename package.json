@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "description": "Run Meteor package or app tests with Mocha",
   "scripts": {
-    "lint": "eslint ./package"
+    "lint": "eslint ./package",
+    "web_reporter_test_app": "bash ./scripts/run_web_reporter_app.sh"
   },
   "author": "Dispatch Technologies, Inc. (http://www.dispatch.me/)",
   "license": "MIT",

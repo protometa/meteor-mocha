@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## vNext
+
+Major bump. No longer compatible with practicalmeteor:mocha. If you need to continue using both, write a script to `meteor add/remove` each before you use it.
+
 ## 0.4.4
 
 Fix broken dependency reference

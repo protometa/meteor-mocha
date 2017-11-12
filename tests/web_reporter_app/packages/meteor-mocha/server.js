@@ -88,7 +88,6 @@ function serverTests(cb) {
 
   if (grep) mochaInstance.grep(grep);
   if (invert) mochaInstance.options.invert = invert;
-  //mochaInstance.options.useColors = true;
 
   // We need to set the reporter when the tests actually run to ensure no conflicts with
   // other test driver packages that may be added to the app but are not actually being
@@ -121,10 +120,10 @@ function clientTests() {
 
   startBrowser({
     stdout(data) {
-      clientLogBuffer(data);
+      clientLogBuffer(data.toString());
     },
     stderr(data) {
-      clientLogBuffer(data);
+      clientLogBuffer(data.toString());
     },
     done(failureCount) {
       exitIfDone('client', failureCount);
