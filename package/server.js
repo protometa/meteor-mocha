@@ -1,5 +1,5 @@
 import { mochaInstance } from 'meteor/practicalmeteor:mocha-core';
-import { startBrowser } from 'meteor/meteortesting:browser-tests';
+import { startBrowser } from 'meteor/protometa:browser-tests';
 
 import setArgs from './runtimeArgs';
 
