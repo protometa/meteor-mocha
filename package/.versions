@@ -12,6 +12,6 @@ modules@0.12.2
 modules-runtime@0.10.0
 practicalmeteor:mocha-core@1.0.1
 promise@0.11.1
-protometa:browser-tests@0.1.5
-protometa:mocha@0.5.3
+protometa:browser-tests@0.1.6
+protometa:mocha@0.5.4
 url@1.2.0
